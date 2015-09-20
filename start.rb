@@ -108,6 +108,9 @@ module Service
 
     def start
       super
+      if File.exists?(pid_file)
+        File.delete(pid_file)
+      end
       # https://gitweb.torproject.org/torbrowser.git/blob_plain/1ffcd9dafb9dd76c3a29dd686e05a71a95599fb5:/build-scripts/config/polipo.conf
       self.class.fire_and_forget(executable,
         "proxyPort=#{port}",
